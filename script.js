@@ -126,7 +126,7 @@ async function handleCheckIn() {
         const success = await updateCheckIn(currentPersonId);
         if (success) {
             const person = await getPerson(currentPersonId);
-            stopScanning();
+            resetToScanning();
             addCheckedInPerson(person.Nome, person.Curso, person.Periodo, currentPersonId); // Atualizado para usar Curso e Periodo
             showSuccessMessage('Check-in efetuado com sucesso!');
         } else {
@@ -169,11 +169,10 @@ function stopScanning() {
 // }
 
 
-// function resetToScanning() {
-//     document.getElementById('personInfo').style.display = 'none';
-//     stopScanning();
-//     startScanning();
-// }
+function resetToScanning() {
+    document.getElementById('personInfo').style.display = 'none';
+    stopScanning();
+}
 
 function showSuccessMessage(message) {
     const successElement = document.getElementById('successMessage');
