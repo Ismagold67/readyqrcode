@@ -161,18 +161,18 @@ function stopScanning() {
     document.getElementById('startButton').style.display = 'flex';
 }
 
-function returnToScanningAfterDelay() {
-  setTimeout(() => {
-      resetToScanning();
-  }, 3000); // Aguarda 3 segundos antes de retornar ao scanner
-}
+// function returnToScanningAfterDelay() {
+//   setTimeout(() => {
+//       resetToScanning();
+//   }, 3000); // Aguarda 3 segundos antes de retornar ao scanner
+// }
 
 
-function resetToScanning() {
-    document.getElementById('personInfo').style.display = 'none';
-    stopScanning();
-    startScanning();
-}
+// function resetToScanning() {
+//     document.getElementById('personInfo').style.display = 'none';
+//     stopScanning();
+//     startScanning();
+// }
 
 function showSuccessMessage(message) {
     const successElement = document.getElementById('successMessage');
@@ -180,14 +180,14 @@ function showSuccessMessage(message) {
     successElement.style.display = 'block';
     setTimeout(() => {
         successElement.style.display = 'none';
-    }, 3000);
+    }, 1000);
 }
 
 function showError(message) {
     const errorElement = document.getElementById('errorMessage');
     errorElement.textContent = message;
     errorElement.style.display = 'block';
-    setTimeout(() => errorElement.style.display = 'none', 5000);
+    setTimeout(() => errorElement.style.display = 'none', 2000);
 }
 
 document.getElementById('startButton').addEventListener('click', startScanning);
