@@ -125,9 +125,9 @@ async function handleCheckIn() {
         const success = await updateCheckIn(currentPersonId);
         if (success) {
             const person = await getPerson(currentPersonId);
+            stopScanning();
             addCheckedInPerson(person.Nome, person.Curso, person.Periodo, currentPersonId); // Atualizado para usar Curso e Periodo
             showSuccessMessage('Check-in efetuado com sucesso!');
-            stopScanning();
         } else {
             showError('Erro ao realizar check-in');
         }
