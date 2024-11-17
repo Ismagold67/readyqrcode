@@ -180,7 +180,7 @@ function showSuccessMessage(message) {
     successElement.style.display = 'block';
     setTimeout(() => {
         successElement.style.display = 'none';
-    }, 1000);
+    }, 2000);
 }
 
 function showError(message) {
