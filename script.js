@@ -109,6 +109,8 @@ async function handleQrCodeScan(qrCodeMessage) {
             document.getElementById('checkInButton').disabled = false;
             document.getElementById('personInfo').style.display = 'block';
         }
+
+        stopScanning();
     } catch (error) {
         showError('Erro ao processar QR Code: ' + error.message);
     }
