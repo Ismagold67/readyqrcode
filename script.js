@@ -127,7 +127,7 @@ async function handleCheckIn() {
             const person = await getPerson(currentPersonId);
             addCheckedInPerson(person.Nome, person.Curso, person.Periodo, currentPersonId); // Atualizado para usar Curso e Periodo
             showSuccessMessage('Check-in efetuado com sucesso!');
-            setTimeout(() => resetToScanning(), 3000); // Volta para o scanner após 3 segundos
+            stopScanning();
         } else {
             showError('Erro ao realizar check-in');
         }
