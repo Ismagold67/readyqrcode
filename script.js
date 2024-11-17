@@ -36,7 +36,7 @@ async function getPerson(qrCodeId) {
 async function updateCheckIn(qrCodeId) {
     try {
         const docRef = doc(db, 'people', qrCodeId);
-        await updateDoc(docRef, { StatusCheckin: true });        
+        await updateDoc(docRef, { StatusPresenca: true });        
         return true;
     } catch (error) {
         console.error('Erro ao atualizar check-in:', error);
@@ -118,8 +118,6 @@ async function handleQrCodeScan(qrCodeMessage) {
     }
 }
 
-
-
 async function handleCheckIn() {
     if (!currentPersonId) return;
 
@@ -127,7 +125,7 @@ async function handleCheckIn() {
         const success = await updateCheckIn(currentPersonId);
         if (success) {
             const person = await getPerson(currentPersonId);
-            addCheckedInPerson(person.Nome, person.Igreja, currentPersonId);
+            addCheckedInPerson(person.Nome, person.Curso, person.Periodo, currentPersonId); // Atualizado para usar Curso e Periodo
             showSuccessMessage('Check-in efetuado com sucesso!');
             setTimeout(() => resetToScanning(), 3000); // Volta para o scanner após 3 segundos
         } else {
