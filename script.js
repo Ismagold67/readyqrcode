@@ -104,7 +104,7 @@ async function handleQrCodeScan(qrCodeMessage) {
 
         if (student.StatusPresenca) {
             showSuccessMessage(`${student.Nome} já registrou presença!`);
-            returnToScanningAfterDelay();
+            stopScanning();
         } else {
             document.getElementById('personName').textContent = `Nome: ${student.Nome}`;
             document.getElementById('personCourse').textContent = `Curso: ${student.Curso}`;
