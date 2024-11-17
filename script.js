@@ -112,7 +112,7 @@ async function handleQrCodeScan(qrCodeMessage) {
             document.getElementById('checkInStatus').textContent = 'Status: Aguardando registro de presença';
             document.getElementById('checkInButton').disabled = false;
             document.getElementById('personInfo').style.display = 'block';
-            stopScanning();
+            resetToScanning()
         }
     } catch (error) {
         showError('Erro ao processar QR Code: ' + error.message);
@@ -126,9 +126,9 @@ async function handleCheckIn() {
         const success = await updateCheckIn(currentPersonId);
         if (success) {
             const person = await getPerson(currentPersonId);
-            resetToScanning();
             addCheckedInPerson(person.Nome, person.Curso, person.Periodo, currentPersonId); // Atualizado para usar Curso e Periodo
             showSuccessMessage('Check-in efetuado com sucesso!');
+            resetToScanning();
         } else {
             showError('Erro ao realizar check-in');
         }
