@@ -167,23 +167,25 @@
     <button id="cancelButton">Cancelar</button>
 
     <div id="personInfo">
-        <h2>Pessoa Identificada:</h2>
+        <h2>Estudante Identificado:</h2>
         <p id="personName">Nome: </p>
-        <p id="personChurch">Igreja: </p>
+        <p id="personCourse">Curso: </p>
+        <p id="personPeriod">Período: </p>
         <p id="checkInStatus"></p>
-        <button id="checkInButton">Fazer check-in</button>
+        <button id="checkInButton">Registrar Presença</button>
     </div>
 
     <div id="successMessage" style="display: none; color: green;"></div>
     <div id="errorMessage" style="display: none; color: red;"></div>
     <br><br><br>
-    <h3>Pessoas que já fizeram check-in:</h3>
+    <h3>Estudantes que já registraram presença:</h3>
     <div id="tableContainer" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
         <table id="checkedInTable" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
             <thead>
                 <tr>
                     <th style="border: 1px solid #ddd; padding: 8px;">Nome</th>
-                    <th style="border: 1px solid #ddd; padding: 8px;">Igreja</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Curso</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Período</th>
                 </tr>
             </thead>
             <tbody>
@@ -191,9 +193,6 @@
             </tbody>
         </table>
     </div>
-    
-    
-    
 
     <script type="module" src="script.js"></script>
 </body>

@@ -47,74 +47,78 @@ async function updateCheckIn(qrCodeId) {
 async function loadCheckedInPeople() {
     const querySnapshot = await getDocs(collection(db, 'people'));
     const tableBody = document.querySelector('#checkedInTable tbody');
-    tableBody.innerHTML = ''; // Limpa a tabela antes de carregar os dados
+    tableBody.innerHTML = ''; 
 
-    const people = [];
+    const students = [];
 
     querySnapshot.forEach(doc => {
         const data = doc.data();
-        if (data.StatusCheckin) { // Apenas registros com StatusCheckin true
-            people.push({ id: doc.id, ...data });
+        if (data.StatusPresenca) {
+            students.push({ id: doc.id, ...data });
         }
     });
 
-    // Ordena os dados em ordem alfabética pelo nome
-    people.sort((a, b) => a.Nome.localeCompare(b.Nome));
+    students.sort((a, b) => a.Nome.localeCompare(b.Nome));
 
-    // Adiciona os registros ordenados à tabela
-    people.forEach(person => {
-        addCheckedInPerson(person.Nome, person.Igreja, person.id);
+    students.forEach(student => {
+        addCheckedInPerson(student.Nome, student.Curso, student.Periodo, student.id);
     });
 }
-
-function addCheckedInPerson(nome, igreja, id) {
+function addCheckedInPerson(nome, curso, periodo, id) {
     const tableBody = document.querySelector('#checkedInTable tbody');
     
-    // Verifica se já existe uma linha com o mesmo ID na tabela
     const existingRows = Array.from(tableBody.children);
     const rowExists = existingRows.some(row => row.dataset.id === id);
     
     if (!rowExists) {
         const row = document.createElement('tr');
-        row.dataset.id = id; // Armazena o ID na linha
+        row.dataset.id = id; 
         
         const nameCell = document.createElement('td');
         nameCell.textContent = nome;
         nameCell.style.border = '1px solid #ddd';
         nameCell.style.padding = '8px';
         
-        const churchCell = document.createElement('td');
-        churchCell.textContent = igreja;
-        churchCell.style.border = '1px solid #ddd';
-        churchCell.style.padding = '8px';
+        const courseCell = document.createElement('td');
+        courseCell.textContent = curso;
+        courseCell.style.border = '1px solid #ddd';
+        courseCell.style.padding = '8px';
+
+        const periodCell = document.createElement('td');
+        periodCell.textContent = periodo;
+        periodCell.style.border = '1px solid #ddd';
+        periodCell.style.padding = '8px';
         
         row.appendChild(nameCell);
-        row.appendChild(churchCell);
+        row.appendChild(courseCell);
+        row.appendChild(periodCell);
         tableBody.appendChild(row);
     }
 }
 
+
 async function handleQrCodeScan(qrCodeMessage) {
     try {
-        const person = await getPerson(qrCodeMessage);
+        const student = await getPerson(qrCodeMessage);
         currentPersonId = qrCodeMessage;
 
-        if (person.StatusCheckin) {
-            showSuccessMessage(`${person.Nome} já efetuou o check-in!`);
+        if (student.StatusPresenca) {
+            showSuccessMessage(`${student.Nome} já registrou presença!`);
             returnToScanningAfterDelay();
         } else {
-            document.getElementById('personName').textContent = `Nome: ${person.Nome}`;
-            document.getElementById('personChurch').textContent = `Igreja: ${person.Igreja}`;
-            document.getElementById('checkInStatus').textContent = 'Status: Aguardando check-in';
+            document.getElementById('personName').textContent = `Nome: ${student.Nome}`;
+            document.getElementById('personCourse').textContent = `Curso: ${student.Curso}`;
+            document.getElementById('personPeriod').textContent = `Período: ${student.Periodo}`;
+            document.getElementById('checkInStatus').textContent = 'Status: Aguardando registro de presença';
             document.getElementById('checkInButton').disabled = false;
             document.getElementById('personInfo').style.display = 'block';
-            stopScanning();
         }
-
     } catch (error) {
         showError('Erro ao processar QR Code: ' + error.message);
     }
 }
+
+
 
 async function handleCheckIn() {
     if (!currentPersonId) return;
